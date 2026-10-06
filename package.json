@@ -1,0 +1,15 @@
+{
+  "name": "@continuumpraxis/davinci",
+  "version": "1.1.0",
+  "description": "Drive DaVinci Resolve Studio 21.1 remotely through the Continuum native MCP tunnel. Reads are free; mutations need dryRun plus confirm.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./status": "./src/status.ts",
+    "./timeline": "./src/timeline.ts"
+  },
+  "kody": {
+    "description": "Drive DaVinci Resolve Studio 21.1 through the native MCP tunnel (status, scripts, mapped legacy tools).",
+    "tags": ["davinci", "resolve", "video", "editing", "mcp", "tunnel"]
+  }
+}
