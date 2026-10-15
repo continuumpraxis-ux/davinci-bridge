@@ -1,0 +1,36 @@
+---
+description: Public-repo security — bearer token only via {{secret:...}} indirection, nothing sensitive ever committed
+globs: "src/**/*.ts"
+alwaysApply: true
+---
+
+# Security — davinci-bridge
+
+This is a **public** repository for the published `@continuumpraxis/davinci`
+bridge. Write every file as if it will be read by strangers the moment it is
+committed — because it will be.
+
+- The bridge bearer token is referenced only through indirection:
+  `{{secret:davinciBridgeToken}}` in examples and calls, an environment
+  reference in code. The real value lives in the host-side token file
+  (covered by `.gitignore`) and is never typed into this repo — not in
+  `src/`, tests, docs, `TOOL-MAPPING.md`, commit messages, or issues.
+- Never log the token, an authorization header, or a request that contains
+  one. Error messages and debug output describe status and shape (401,
+  unreachable), never credential content.
+- `AGENTS.md` documents the token-file *name* and the tunnel host: that is
+  the disclosure ceiling. Do not add host paths, account details, tunnel
+  credentials, or other infrastructure specifics beyond what it already
+  names.
+- Smoke tests and examples follow the `AGENTS.md` pattern: reads are free,
+  writes need `confirm: true` and `dryRun` first, and every call carries the
+  `{{secret:...}}` reference — never a pasted value to "just try it once".
+- Before any commit, check the staged set against `.gitignore` classes:
+  token files, `.env*`, `node_modules/`, build output. A stray `git add -A`
+  in a public repo is how host tokens leak.
+- New dependencies are a supply-chain decision in a published package: this
+  package currently ships with none. Adding one requires calling it out in
+  the PR with the reason.
+- If you encounter a real token value anywhere, stop, do not copy it into
+  any output, and report only the file path and credential type. In a public
+  repo, a committed secret means rotation, not just deletion.

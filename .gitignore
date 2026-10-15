@@ -1,0 +1,20 @@
+# Secrets — this is a PUBLIC repo. Nothing below may ever be committed.
+.token-native
+.token
+*.token
+.env
+.env.*
+!.env.example
+credentials.json
+*secret*.json
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+coverage/
+*.tgz
+
+# Logs and OS noise
+*.log
+.DS_Store
